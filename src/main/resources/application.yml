@@ -1,0 +1,32 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /api
+
+
+spring:
+
+
+  data:
+    rest:
+      base-path: /api
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+  ai:
+    openai:
+      api-key: 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
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    #     Hibernate ddl auto (create, create-drop, validate, update)
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: admin
+    password: admin
+    driverClassName: org.postgresql.Driver
