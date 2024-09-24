@@ -18,15 +18,16 @@ spring:
     openai:
       api-key: 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
   jpa:
+
     database: POSTGRESQL
     show-sql: true
     #     Hibernate ddl auto (create, create-drop, validate, update)
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://213.183.53.48:5432/conflict
     username: admin
     password: admin
     driverClassName: org.postgresql.Driver
