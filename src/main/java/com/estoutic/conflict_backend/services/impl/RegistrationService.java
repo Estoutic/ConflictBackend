@@ -19,7 +19,7 @@ public class RegistrationService implements IRegistrationService {
 
     @Override
     public Integer registerUser(UserDto userDto) {
-        if (userRepository.existsByUserName(userDto.getUserName())){
+        if (userRepository.existsByUsername(userDto.getUsername())){
             return null;
             //throw exception
         }

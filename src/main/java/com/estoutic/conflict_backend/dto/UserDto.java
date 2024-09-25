@@ -17,7 +17,7 @@ public class UserDto {
 
     @NotNull
     @NotEmpty
-    private String userName;
+    private String username;
 
     @NotNull
     @NotEmpty
@@ -29,7 +29,7 @@ public class UserDto {
 
     public UserDto(User user) {
         this.id = user.getId();
-        this.userName = user.getUserName();
+        this.username = user.getUsername();
         this.password = user.getPassword();
         this.phone = user.getPhone();
     }
