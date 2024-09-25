@@ -2,7 +2,7 @@ package com.estoutic.conflict_backend.controllers.user;
 
 
 import com.estoutic.conflict_backend.dto.UserDto;
-import com.estoutic.conflict_backend.services.impl.UserService;
+import com.estoutic.conflict_backend.services.auth.impl.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
