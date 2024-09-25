@@ -19,17 +19,12 @@ public class RegistrationService implements IRegistrationService {
 
     @Override
     public Integer registerUser(UserDto userDto) {
-        if (userRepository.existsByUsername(userDto.getUsername())){
+        if (userRepository.existsByUsername(userDto.getUsername())) {
             return null;
             //throw exception
         }
         User user = new User(userDto);
         return userRepository.save(user).id;
 
-    }
-
-    @Override
-    public List<UserDto> getUserInfo() {
-        return userRepository.findAll().stream().map(UserDto::new).toList();
     }
 }

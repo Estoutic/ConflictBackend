@@ -1,4 +1,4 @@
-package com.estoutic.conflict_backend.controllers.auth;
+package com.estoutic.conflict_backend.controllers.user.auth;
 
 
 import com.estoutic.conflict_backend.dto.UserDto;
@@ -20,12 +20,6 @@ public class RegistrationController {
     @PostMapping("/user")
     public Integer registerUser(@RequestBody UserDto userDto){
         return registrationService.registerUser(userDto);
-    }
-
-
-    @GetMapping ("/user")
-    public List<UserDto> getInfo(){
-        return registrationService.getUserInfo() ;
     }
 
 }

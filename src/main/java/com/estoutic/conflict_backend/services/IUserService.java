@@ -4,8 +4,7 @@ import com.estoutic.conflict_backend.dto.UserDto;
 
 import java.util.List;
 
-public interface IRegistrationService {
+public interface IUserService {
 
-    Integer registerUser(UserDto userDto);
-
+    List<UserDto> getAll();
 }
