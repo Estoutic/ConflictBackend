@@ -39,20 +39,18 @@ public class RoleSeeder implements ApplicationRunner {
 
         roles.add("User");
         roles.add("Admin");
-        roles.add("Superadmin");
-        roles.add("Manager");
 
-        var index = 0;
         for (var role : roles ) {
-            Role r = Role.builder()
-                    .roleName(role)
-                    .build();
+            if (!roleRepository.existsByRoleName(role)) {
+                Role r = Role.builder()
+                        .roleName(role)
+                        .build();
 
-            this.roleRepository.save(r);
+                this.roleRepository.save(r);
 
-            log.info("Success run RoleSeeder {}",roles.get(index));
+                log.info("Success run RoleSeeder {}", role);
+            }
 
-            index++;
         }
     }
 }

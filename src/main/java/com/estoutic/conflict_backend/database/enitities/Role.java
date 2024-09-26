@@ -24,4 +24,8 @@ public class Role implements Serializable {
     @Column(unique = true, nullable = false, name = "role_name")
     private String roleName;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }
