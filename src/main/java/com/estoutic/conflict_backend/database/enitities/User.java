@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Data
@@ -31,8 +29,13 @@ public class User implements UserDetails {
 
     private String phone;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Role> roleList;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @Column(name = "is_verified", nullable = true)
     private Boolean is_verified = false;
@@ -68,16 +71,13 @@ public class User implements UserDetails {
     }
 
     public User(UserDto userDto) {
+        this.roles = new HashSet<>();
         this.username = userDto.getUsername();
         this.password = PasswordEncoder.getInstance().encode(userDto.getPassword());
         this.phone = userDto.getPhone();
     }
 
     public void addRole(Role role) {
-        if (!this.roleList.contains(role)) {
-            this.roleList.add(role);
-        } else {
-            throw new RuntimeException("User already has role");
-        }
+        this.roles.add(role);
     }
 }

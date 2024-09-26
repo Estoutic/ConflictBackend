@@ -35,7 +35,7 @@ public class AuthController {
             HttpServletResponse response
     ) {
         UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(
-                userDto.getPhone(), userDto.getPassword()
+                userDto.getUsername(), userDto.getPassword()
         );
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContext securityContext = securityContextHolderStrategy.createEmptyContext();

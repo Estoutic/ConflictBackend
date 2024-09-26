@@ -54,6 +54,7 @@ class SecurityConfiguration {
                     request.requestMatchers("/auth/login", "/auth/register").permitAll();
                     request.requestMatchers("/**").fullyAuthenticated();
                     request.requestMatchers("/public/**").permitAll();
+                    request.anyRequest().permitAll();
                 }
         );
 
