@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ public class AuthService implements IAuthService {
     private final RoleRepository roleRepository;
 
     @Override
-    public Integer registerUser(UserDto userDto) {
+    public UUID registerUser(UserDto userDto) {
         if (userRepository.existsByUsername(userDto.getUsername())) {
             throw new UserAlreadyExistException(userDto.getUsername());
         }

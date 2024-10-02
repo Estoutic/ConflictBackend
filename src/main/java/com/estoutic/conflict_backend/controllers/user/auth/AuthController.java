@@ -18,6 +18,8 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping( "/auth")
@@ -47,7 +49,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public Integer registerUser(@RequestBody UserDto userDto){
+    public UUID registerUser(@RequestBody UserDto userDto){
         return authService.registerUser(userDto);
     }
 

@@ -2,7 +2,10 @@ package com.estoutic.conflict_backend.database.enitities;
 
 import com.estoutic.conflict_backend.dto.UserDto;
 import com.estoutic.conflict_backend.utils.PasswordEncoder;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -16,11 +19,12 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @Table(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
 
     private String username;
@@ -38,6 +42,7 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Proof> proofs;
 
     @Column(name = "is_verified", nullable = true)
@@ -86,6 +91,8 @@ public class User implements UserDetails {
     }
 
     public void addProof(Proof proof) {
-        this.proofs.add(proof);
+        if (!this.proofs.contains(proof)) {
+            this.proofs.add(proof);
+        }
     }
 }

@@ -1,21 +1,25 @@
 package com.estoutic.conflict_backend.database.enitities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Conflict {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @CreationTimestamp
     private Instant createdAt;
@@ -23,6 +27,7 @@ public class Conflict {
     private Boolean status;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "conflict")
+    @JsonIgnore
     private Set<Proof> proofs;
 
     public Conflict() {
@@ -30,7 +35,9 @@ public class Conflict {
         this.proofs = new HashSet<>();
     }
 
-    public void addProof(Proof proof){
-        this.proofs.add(proof);
+    public void addProof(Proof proof) {
+        if (!this.proofs.contains(proof)) {
+            this.proofs.add(proof);
+        }
     }
 }
