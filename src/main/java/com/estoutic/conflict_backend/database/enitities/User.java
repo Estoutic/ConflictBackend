@@ -37,6 +37,9 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Proof> proofs;
+
     @Column(name = "is_verified", nullable = true)
     private Boolean is_verified = false;
 
@@ -72,6 +75,7 @@ public class User implements UserDetails {
 
     public User(UserDto userDto) {
         this.roles = new HashSet<>();
+        this.proofs = new HashSet<>();
         this.username = userDto.getUsername();
         this.password = PasswordEncoder.getInstance().encode(userDto.getPassword());
         this.phone = userDto.getPhone();
@@ -79,5 +83,9 @@ public class User implements UserDetails {
 
     public void addRole(Role role) {
         this.roles.add(role);
+    }
+
+    public void addProof(Proof proof) {
+        this.proofs.add(proof);
     }
 }

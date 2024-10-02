@@ -38,4 +38,11 @@ public class AuthService implements IAuthService {
         String username = loggedInUser.getPrincipal().toString();
         return new UserDto(Objects.requireNonNull(userRepository.findByUsername(username).orElse(null)));
     }
+
+    @Override
+    public User getUserBySession() {
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = loggedInUser.getPrincipal().toString();
+        return userRepository.findByUsername(username).orElse(null);
+    }
 }

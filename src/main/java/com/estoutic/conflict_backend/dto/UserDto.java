@@ -13,10 +13,9 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
-//@PasswordMatches
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
 
     private Integer id;

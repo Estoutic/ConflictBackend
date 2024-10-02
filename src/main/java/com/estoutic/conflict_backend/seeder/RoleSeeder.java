@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -44,6 +45,7 @@ public class RoleSeeder implements ApplicationRunner {
             if (!roleRepository.existsByRoleName(role)) {
                 Role r = Role.builder()
                         .roleName(role)
+                        .users(new HashSet<>())
                         .build();
 
                 this.roleRepository.save(r);
