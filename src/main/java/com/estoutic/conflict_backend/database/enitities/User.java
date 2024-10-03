@@ -41,7 +41,15 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.ALL})
+    @JoinTable(
+            name = "user_conflicts",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "conflict_id")
+    )
+    private Set<Conflict> conflicts = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Proof> proofs;
 
@@ -81,6 +89,7 @@ public class User implements UserDetails {
     public User(UserDto userDto) {
         this.roles = new HashSet<>();
         this.proofs = new HashSet<>();
+        this.conflicts = new HashSet<>();
         this.username = userDto.getUsername();
         this.password = PasswordEncoder.getInstance().encode(userDto.getPassword());
         this.phone = userDto.getPhone();
@@ -90,9 +99,11 @@ public class User implements UserDetails {
         this.roles.add(role);
     }
 
+    public void addConflict(Conflict conflict){
+        this.conflicts.add(conflict);
+    }
+
     public void addProof(Proof proof) {
-        if (!this.proofs.contains(proof)) {
-            this.proofs.add(proof);
-        }
+        this.proofs.add(proof);
     }
 }

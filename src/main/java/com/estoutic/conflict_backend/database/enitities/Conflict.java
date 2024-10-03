@@ -26,18 +26,25 @@ public class Conflict {
 
     private Boolean status;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "conflict")
+    @ManyToMany(mappedBy = "conflicts", cascade = CascadeType.ALL)
+    private Set<User> users;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "conflict", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Proof> proofs;
 
-    public Conflict() {
+    public Conflict(User user) {
         this.status = true;
         this.proofs = new HashSet<>();
+        this.users = new HashSet<>();
+        this.users.add(user);
+    }
+
+    public Conflict() {
+
     }
 
     public void addProof(Proof proof) {
-        if (!this.proofs.contains(proof)) {
-            this.proofs.add(proof);
-        }
+        this.proofs.add(proof);
     }
 }

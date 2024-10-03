@@ -45,6 +45,8 @@ public class Proof {
 
     public Proof(ProofDto proofDto) {
         this.description = proofDto.getDescription();
+//        this.user = user;
+//        this.conflict = conflict;
     }
 
     public void setUser(User user) {

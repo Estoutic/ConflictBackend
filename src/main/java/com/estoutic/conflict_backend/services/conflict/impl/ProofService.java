@@ -22,21 +22,26 @@ public class ProofService implements IProofService {
     private final ProofRepository proofRepository;
     private final AuthService authService;
     private final ConflictRepository conflictRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UUID add(ProofDto proofDto) {
-        Proof proof = new Proof(proofDto);
         User user = authService.getUserBySession();
         Conflict conflict = conflictRepository.findById(proofDto.getConflictId())
                 .orElseThrow(ConflictDoesNotExistException::new);
+        Proof proof = new Proof(proofDto);
 
-        proof.setUser(user);
         proof.setConflict(conflict);
+        proof.setUser(user);
 
         proofRepository.save(proof);
-//
+
 //        user.addProof(proof);
 //        conflict.addProof(proof);
+
+//        userRepository.save(user);
+//        conflictRepository.save(conflict);
+
         return proof.getId();
     }
 }

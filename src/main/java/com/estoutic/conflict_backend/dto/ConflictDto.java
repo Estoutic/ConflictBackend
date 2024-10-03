@@ -21,9 +21,9 @@ public class ConflictDto {
 
     private List<ProofDto> proofs;
 
-    public ConflictDto(Conflict conflict) {
+    public ConflictDto(Conflict conflict, List<ProofDto> proofs) {
         this.id = conflict.getId();
         this.status = conflict.getStatus();
-        this.proofs = conflict.getProofs().stream().map(ProofDto::new).toList();
+        this.proofs = proofs;
     }
 }
