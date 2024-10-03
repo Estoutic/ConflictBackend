@@ -29,19 +29,10 @@ public class ProofService implements IProofService {
         User user = authService.getUserBySession();
         Conflict conflict = conflictRepository.findById(proofDto.getConflictId())
                 .orElseThrow(ConflictDoesNotExistException::new);
-        Proof proof = new Proof(proofDto);
-
-        proof.setConflict(conflict);
-        proof.setUser(user);
+        Proof proof = new Proof(proofDto, user, conflict);
 
         proofRepository.save(proof);
-
-//        user.addProof(proof);
-//        conflict.addProof(proof);
-
-//        userRepository.save(user);
-//        conflictRepository.save(conflict);
-
+        
         return proof.getId();
     }
 }
