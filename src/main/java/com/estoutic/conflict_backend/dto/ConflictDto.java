@@ -24,10 +24,10 @@ public class ConflictDto {
 
     private List<UserDto> users;
 
-    public ConflictDto(Conflict conflict, List<ProofDto> proofs, List<UserDto> users) {
+    public ConflictDto(Conflict conflict) {
         this.id = conflict.getId();
         this.status = conflict.getStatus();
-        this.proofs = proofs;
-        this.users = users;
+        this.proofs = conflict.getProofs().stream().map(ProofDto::new).toList();
+        this.users = conflict.getUsers().stream().map(UserDto::new).toList();
     }
 }

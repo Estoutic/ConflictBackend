@@ -24,7 +24,7 @@ spring:
     #     Hibernate ddl auto (create, create-drop, validate, update)
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
     url: jdbc:postgresql://213.183.53.48:5432/conflict
     username: admin

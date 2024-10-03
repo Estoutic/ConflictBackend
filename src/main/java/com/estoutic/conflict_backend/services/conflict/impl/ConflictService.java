@@ -42,22 +42,10 @@ public class ConflictService implements IConflictService {
     @Override
     public List<ConflictDto> getAll() {
 
-//        User user = authService.getUserBySession();
-//
-//        List<Proof> proofs = proofRepository.findAllByUser(user);
-//        List<Conflict> conflicts = proofs.stream().map(Proof::getConflict).toList();
-////        List<Conflict> conflicts = user.getProofs().stream().map(Proof::getConflict).toList();
-//        return conflicts.stream().map(
-//                conflict -> {
-//                    List<Proof> matchingProof = proofs.stream().filter(
-//                            proof -> proof.getConflict().equals(conflict)
-//                    ).toList();
-//                    List<User> users = userRepository.f
-//                    return new ConflictDto(conflict, matchingProof.stream().map(ProofDto::new).toList());
-//                }
-//        ).toList();
+        User user = authService.getUserBySession();
+        List<Conflict> conflicts = user.getConflicts().stream().toList();
 
-        return null;
+        return conflicts.stream().map(ConflictDto::new).toList();
 
     }
 }

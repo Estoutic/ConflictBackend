@@ -32,7 +32,6 @@ public class ProofService implements IProofService {
         Proof proof = new Proof(proofDto, user, conflict);
 
         proofRepository.save(proof);
-        
         return proof.getId();
     }
 }
